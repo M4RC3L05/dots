@@ -35,6 +35,7 @@
   },
   "lock": true,
   "imports": {
+    "@david/dax": "jsr:@david/dax@0.43.0",
     "@libs/diff": "jsr:@libs/diff@3.0.0",
     "@std/cli": "jsr:@std/cli@1.0.17",
     "@std/fs": "jsr:@std/fs@1.0.17",

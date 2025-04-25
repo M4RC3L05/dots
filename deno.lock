@@ -1,23 +1,64 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@david/dax@0.43.0": "0.43.0",
+    "jsr:@david/path@0.2": "0.2.0",
+    "jsr:@david/which@~0.4.1": "0.4.1",
     "jsr:@libs/diff@3.0.0": "3.0.0",
+    "jsr:@std/bytes@^1.0.5": "1.0.5",
     "jsr:@std/cli@1.0.17": "1.0.17",
+    "jsr:@std/fmt@1": "1.0.7",
+    "jsr:@std/fs@1": "1.0.17",
     "jsr:@std/fs@1.0.17": "1.0.17",
+    "jsr:@std/io@0.225": "0.225.2",
+    "jsr:@std/path@1": "1.0.9",
     "jsr:@std/path@1.0.9": "1.0.9",
     "jsr:@std/path@^1.0.9": "1.0.9"
   },
   "jsr": {
+    "@david/dax@0.43.0": {
+      "integrity": "72068d3b9eb00c08d70d0d1e2db8872402377279a0e6c88df172112eee1357f1",
+      "dependencies": [
+        "jsr:@david/path",
+        "jsr:@david/which",
+        "jsr:@std/fmt",
+        "jsr:@std/fs@1",
+        "jsr:@std/io",
+        "jsr:@std/path@1"
+      ]
+    },
+    "@david/path@0.2.0": {
+      "integrity": "f2d7aa7f02ce5a55e27c09f9f1381794acb09d328f8d3c8a2e3ab3ffc294dccd",
+      "dependencies": [
+        "jsr:@std/fs@1",
+        "jsr:@std/path@1"
+      ]
+    },
+    "@david/which@0.4.1": {
+      "integrity": "896a682b111f92ab866cc70c5b4afab2f5899d2f9bde31ed00203b9c250f225e"
+    },
     "@libs/diff@3.0.0": {
       "integrity": "81b3c0352e70b61f5967a9d3a4ec871d83867fd127681e28f7e9573e0eb5d20b"
     },
+    "@std/bytes@1.0.5": {
+      "integrity": "4465dd739d7963d964c809202ebea6d5c6b8e3829ef25c6a224290fbb8a1021e"
+    },
     "@std/cli@1.0.17": {
       "integrity": "e15b9abe629e17be90cc6216327f03a29eae613365f1353837fa749aad29ce7b"
+    },
+    "@std/fmt@1.0.7": {
+      "integrity": "2a727c043d8df62cd0b819b3fb709b64dd622e42c3b1bb817ea7e6cc606360fb"
     },
     "@std/fs@1.0.17": {
       "integrity": "1c00c632677c1158988ef7a004cb16137f870aafdb8163b9dce86ec652f3952b",
       "dependencies": [
         "jsr:@std/path@^1.0.9"
+      ]
+    },
+    "@std/io@0.225.2": {
+      "integrity": "3c740cd4ee4c082e6cfc86458f47e2ab7cb353dc6234d5e9b1f91a2de5f4d6c7",
+      "dependencies": [
+        "jsr:@std/bytes"
       ]
     },
     "@std/path@1.0.9": {
@@ -26,6 +67,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@david/dax@0.43.0",
       "jsr:@libs/diff@3.0.0",
       "jsr:@std/cli@1.0.17",
       "jsr:@std/fs@1.0.17",
