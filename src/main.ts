@@ -24,10 +24,10 @@ Options:
 
 Commands:
   diff                        Diffs the user's dotfiles files with the ~/ files.
-  adopt                       Adopts changes from ~/ files to user's dotfiles files.
+  adopt [PATH (optional)]     Adopts changes from ~/ files to user's dotfiles files.
                               A subpath of users home directory can be provided as an argument, in order to only apply part of the directories/files.
                               It can be a subdirectory or a file.
-  apply                       Apply changes from user's dotfiles files to ~/ files.
+  apply [PATH (optional)]     Apply changes from user's dotfiles files to ~/ files.
                               A subpath of users dotfiles files directory can be provided as an argument, in order to only apply part of the directories/files.
                               It can be a subdirectory or a file.
   `.trim());
