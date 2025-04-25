@@ -1,0 +1,43 @@
+{
+  "name": "@m4rc3l05/dots",
+  "version": "0.0.0",
+  "exports": "./src/main.ts",
+  "tasks": {
+    "run": {
+      "description": "Run the command",
+      "command": "deno run --cached-only --allow-read --allow-write --allow-sys=uid,gid --allow-env=HOME,USERPROFILE,DOTS_DOTFILES_FILES_DIR src/main.ts"
+    },
+    "compile": {
+      "description": "Compiles de command",
+      "command": "deno compile --cached-only --allow-read --allow-write --allow-sys=uid,gid --allow-env=HOME,USERPROFILE,DOTS_DOTFILES_FILES_DIR -o ./.bin/dots ./src/main.ts"
+    },
+    "check:fmt": {
+      "description": "Run formatting checks",
+      "command": "deno fmt --check"
+    },
+    "check:lint": {
+      "description": "Run lint checks",
+      "command": "deno lint"
+    },
+    "check:check": {
+      "description": "Run check checks",
+      "command": "deno check ."
+    },
+    "checks": {
+      "description": "Run code checks",
+      "dependencies": ["check:fmt", "check:lint", "check:check"]
+    }
+  },
+  "lint": {
+    "rules": {
+      "include": ["verbatim-module-syntax"]
+    }
+  },
+  "lock": true,
+  "imports": {
+    "@libs/diff": "jsr:@libs/diff@3.0.0",
+    "@std/cli": "jsr:@std/cli@1.0.17",
+    "@std/fs": "jsr:@std/fs@1.0.17",
+    "@std/path": "jsr:@std/path@1.0.9"
+  }
+}
