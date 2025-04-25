@@ -1,6 +1,6 @@
 {
   "name": "@m4rc3l05/dots",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "exports": "./src/main.ts",
   "tasks": {
     "run": {
