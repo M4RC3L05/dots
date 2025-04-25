@@ -33,7 +33,9 @@
       "include": ["verbatim-module-syntax"]
     }
   },
-  "lock": true,
+  "lock": {
+    "frozen": true
+  },
   "imports": {
     "@david/dax": "jsr:@david/dax@0.43.0",
     "@libs/diff": "jsr:@libs/diff@3.0.0",
