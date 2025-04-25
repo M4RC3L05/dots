@@ -1,3 +1,2 @@
 [tools]
-deno = "latest"
-haxe = "4.3.6"
+deno = "2.2.12"
