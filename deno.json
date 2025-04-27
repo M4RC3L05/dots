@@ -11,6 +11,10 @@
       "description": "Compiles de command",
       "command": "deno compile --cached-only --allow-read --allow-write --allow-sys=uid,gid --allow-env=HOME,USERPROFILE,DOTS_DOTFILES_FILES_DIR -o ./.bin/dots ./src/main.ts"
     },
+    "test": {
+      "description": "Run tests",
+      "command": "deno test --no-check --parallel -A"
+    },
     "check:fmt": {
       "description": "Run formatting checks",
       "command": "deno fmt --check"
@@ -39,8 +43,12 @@
   "imports": {
     "@david/dax": "jsr:@david/dax@0.43.0",
     "@libs/diff": "jsr:@libs/diff@3.0.0",
+    "@std/assert": "jsr:@std/assert@1.0.13",
     "@std/cli": "jsr:@std/cli@1.0.17",
+    "@std/collections": "jsr:@std/collections@1.0.11",
+    "@std/fmt": "jsr:@std/fmt@1.0.7",
     "@std/fs": "jsr:@std/fs@1.0.17",
-    "@std/path": "jsr:@std/path@1.0.9"
+    "@std/path": "jsr:@std/path@1.0.9",
+    "@std/testing": "jsr:@std/testing@1.0.11"
   }
 }

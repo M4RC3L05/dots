@@ -21,3 +21,6 @@ jobs:
 
       - name: run code checks
         run: deno task checks
+
+      - name: run test
+        run: deno task test
