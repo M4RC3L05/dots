@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+
+set -e
+
+BIN_NAME="dots"
+TARGETS="linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64 windows/arm64"
+LD_FLAGS="-s -w"
+
+resolve_binary_extension() {
+  if [ "$1" = "windows" ]; then
+    echo ".exe"
+  else
+    echo ""
+  fi
+}
+
+resolve_compress_extension() {
+  if [ "$1" = "windows" ]; then
+    echo ".zip"
+  else
+    echo ".tar.xz"
+  fi
+}
+
+main() {
+  rm -rf .bin/dots*
+
+  for target in $TARGETS; do
+    os="$(echo "$target" | cut -d'/' -f1)"
+    arch="$(echo "$target" | cut -d'/' -f2)"
+
+    extension="$(resolve_binary_extension "$os")"
+    compress_extension="$(resolve_compress_extension "$os")"
+
+    binary_name_with_os_and_arch="$BIN_NAME-$os-$arch"
+    binary_with_extension="$BIN_NAME$extension"
+    final_compress_name="$binary_name_with_os_and_arch$compress_extension"
+
+    compile_path=".bin/$binary_name_with_os_and_arch/$binary_with_extension"
+    compress_path=".bin/$final_compress_name"
+    checksum_path="$final_compress_name.sha256"
+
+    GOOS="$os" ARCH="$arch" go build -ldflags="$LD_FLAGS" -o "$compile_path" main.go
+
+    if [ "$os" = "windows" ]; then
+      zip -j "$compress_path" "$compile_path"
+    else
+      tar -cJf "$compress_path" -C "$(dirname "$compile_path")" "$BIN_NAME"
+    fi
+
+    rm -rf "$(dirname "$compile_path")"
+    (cd ".bin" && sha256sum "$final_compress_name" > "$checksum_path")
+  done
+}
+
+main "$@"
