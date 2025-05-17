@@ -1,6 +1,5 @@
 ---
 name: Release
-
 on:
   push:
     tags:
@@ -22,14 +21,15 @@ jobs:
         with:
           install: true
           cache: true
+          experimental: true
 
       - name: install deps
-        run: deno install
+        run: go mod download
 
-      - name: build
-        run: ./scripts/build.ts
+      - name: release
+        run: ./scripts/release
 
       - name: release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./.bin/dots-*.tar.gz,./.bin/dots-*.zip,./.bin/dots-*.sha256"
+          artifacts: "./.bin/the-office-quote-*.tar.xz,./.bin/the-office-quote-*.zip,./.bin/the-office-quote-*.sha256"

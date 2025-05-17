@@ -15,12 +15,21 @@ jobs:
         with:
           install: true
           cache: true
+          experimental: true
 
       - name: install deps
-        run: deno install
+        run: go mod download
+
+      - name: check tidy
+        run: go mod tidy -diff
 
       - name: run code checks
-        run: deno task checks
+        run: |
+          echo "Check formatting"
+          golangci-lint fmt --diff-colored ./...
 
-      - name: run test
-        run: deno task test
+          echo "Check linting"
+          golangci-lint run ./...
+
+      - name: run tests
+        run: ginkgo -p ./...
