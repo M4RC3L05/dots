@@ -1,16 +1,22 @@
-import meta from "../../deno.json" with { type: "json" };
-import type { Logger } from "./logger.ts";
+package displays
 
-export const printHelp = ({ logger }: { logger: Logger }) => {
-  logger.log.log(`
-dots
+import (
+	"strings"
+
+	"github.com/fatih/color"
+	"github.com/m4rc3l05/dots/src/core"
+)
+
+func PrintHelp(logger core.ILogger) {
+	logger.Lognl(strings.TrimSpace(`
+%s
 
 Utility to manage your dotfiles, by keeping a given folder with a copy of the relevant dotfiles from user's home directory.
 It allows you to adopt the dotfiles changes or override with local changes.
 
-Usage: dots [OPTIONS] [COMMAND] [ARGS]
+Usage: %s %s %s %s
 
-Options:
+%s:
   --help, -h                              Display this help menu
 
   --version, -V                           Display version
@@ -24,40 +30,19 @@ Options:
 
   --color, -c <true/false>                Colors output. Enabled by default.
 
-Commands:
+%s:
   diff                                    Diffs the user's dotfiles files with the ~/ files.
 
   adopt                                   Adopts changes from ~/ files to user's dotfiles files.
                                           A subpath of users home directory can be provided as an argument, in order to only apply part of the directories/files.
                                           It can be a subdirectory or a file.
-    Args:
+    %s:
       path (optional)                     A path under the user's home directory to adopt from.
 
   apply                                   Apply changes from user's dotfiles files to ~/ files.
                                           A subpath of users dotfiles files directory can be provided as an argument, in order to only apply part of the directories/files.
                                           It can be a subdirectory or a file.
-    Args:
+    %s:
       path (optional)                     A path under the user's dotfiles files directory.
-  `.trim());
-};
-
-export const printEnvironment = (
-  { homedir, dotfilesFilesDir, logger }: {
-    homedir: string;
-    logger: Logger;
-    dotfilesFilesDir: string;
-  },
-) => {
-  logger.log.log(`
------------------------
-Environment:
-
-HOME:               ${homedir}
-DOTFILES FILES DIR: ${dotfilesFilesDir}
------------------------
-  `.trim());
-};
-
-export const printVersion = ({ logger }: { logger: Logger }) => {
-  logger.log.log(`v${meta.version}`);
-};
+`), color.MagentaString("dots"), color.MagentaString("dots"), color.GreenString("[OPTIONS]"), color.MagentaString("[COMMAND]"), color.YellowString("[ARGS]"), color.GreenString("Options"), color.MagentaString("Command"), color.YellowString("Args"), color.YellowString("Args"))
+}
