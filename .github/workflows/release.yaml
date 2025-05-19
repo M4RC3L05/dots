@@ -32,4 +32,4 @@ jobs:
       - name: release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./.bin/the-office-quote-*.tar.xz,./.bin/the-office-quote-*.zip,./.bin/the-office-quote-*.sha256"
+          artifacts: "./.bin/dots-*.tar.xz,./.bin/dots-*.zip,./.bin/dots-*.sha256"
