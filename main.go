@@ -12,6 +12,8 @@ import (
 	"github.com/m4rc3l05/dots/src/displays"
 )
 
+var Version string = "v1.0.0"
+
 func handlePanic(logger core.ILogger) {
 	if r := recover(); r != nil {
 		logger.Errornl("Recovered from panic")
@@ -82,7 +84,7 @@ func main() {
 			},
 			Rest: flag.Args(),
 		},
-		Version:          "0.0.0",
+		Version:          Version,
 		Logger:           logger,
 		Homedir:          homedir,
 		DotfilesFilesDir: dotfilesFilesDir,
