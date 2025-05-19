@@ -12,7 +12,7 @@ import (
 	"github.com/m4rc3l05/dots/src/displays"
 )
 
-var Version string = "v1.0.0"
+var Version string = "v2.0.0"
 
 func handlePanic(logger core.ILogger) {
 	if r := recover(); r != nil {
