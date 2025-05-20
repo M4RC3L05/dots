@@ -1,6 +1,8 @@
 package src_test
 
 import (
+	"errors"
+
 	"github.com/m4rc3l05/dots/src"
 	"github.com/m4rc3l05/dots/src/commands"
 	"github.com/m4rc3l05/dots/src/testing"
@@ -85,6 +87,24 @@ var _ = Describe("app()", func() {
 		testing.AssertSpyDisplaysCalls(*displays, nil)
 	})
 
+	It("should return what `diff` returned", func() {
+		ok, err := src.App(src.Args{
+			CmdArgs: src.CmdArgs{
+				Rest: []string{"diff"},
+			},
+			Displays: displays,
+			Commands: &testing.SpyCommands{
+				Impl: testing.SpyCommandsImpl{
+					Diff: func(args commands.DiffArgs) (bool, error) { return false, errors.New("foo") },
+				},
+			},
+			Logger: logger,
+		})
+
+		Expect(ok).To(BeFalse())
+		Expect(err).To(MatchError("foo"))
+	})
+
 	It("should run apply if `apply` command provided", func() {
 		src.App(src.Args{
 			CmdArgs: src.CmdArgs{
@@ -116,6 +136,24 @@ var _ = Describe("app()", func() {
 		Expect(cmds.Calls.Apply[0].Args).To(Equal([]any{commands.ApplyArgs{From: "foo"}}))
 	})
 
+	It("should return what `apply` returned", func() {
+		ok, err := src.App(src.Args{
+			CmdArgs: src.CmdArgs{
+				Rest: []string{"apply"},
+			},
+			Displays: displays,
+			Commands: &testing.SpyCommands{
+				Impl: testing.SpyCommandsImpl{
+					Apply: func(args commands.ApplyArgs) (bool, error) { return false, errors.New("foo") },
+				},
+			},
+			Logger: logger,
+		})
+
+		Expect(ok).To(BeFalse())
+		Expect(err).To(MatchError("foo"))
+	})
+
 	It("should run adopt if `adopt` command provided", func() {
 		src.App(src.Args{
 			CmdArgs: src.CmdArgs{
@@ -145,6 +183,24 @@ var _ = Describe("app()", func() {
 		testing.AssertSpyCommandsCalls(*cmds, &testing.SpyCommandsCallNumber{Adopt: 1})
 		testing.AssertSpyDisplaysCalls(*displays, nil)
 		Expect(cmds.Calls.Adopt[0].Args).To(Equal([]any{commands.AdoptArgs{From: "foo"}}))
+	})
+
+	It("should return what `adopt` returned", func() {
+		ok, err := src.App(src.Args{
+			CmdArgs: src.CmdArgs{
+				Rest: []string{"adopt"},
+			},
+			Displays: displays,
+			Commands: &testing.SpyCommands{
+				Impl: testing.SpyCommandsImpl{
+					Adopt: func(args commands.AdoptArgs) (bool, error) { return false, errors.New("foo") },
+				},
+			},
+			Logger: logger,
+		})
+
+		Expect(ok).To(BeFalse())
+		Expect(err).To(MatchError("foo"))
 	})
 
 	It("should print help if command is not supported", func() {

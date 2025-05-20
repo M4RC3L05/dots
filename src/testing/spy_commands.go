@@ -11,20 +11,32 @@ type SpyCommandsCalls struct {
 	Adopt []core.SpyCallNoRt
 	Apply []core.SpyCallNoRt
 }
+
 type SpyCommandsCallNumber struct {
 	Diff  int
 	Adopt int
 	Apply int
 }
 
+type SpyCommandsImpl struct {
+	Adopt func(args commands.AdoptArgs) (bool, error)
+	Diff  func(args commands.DiffArgs) (bool, error)
+	Apply func(args commands.ApplyArgs) (bool, error)
+}
+
 type SpyCommands struct {
 	commands.ICommands
 
 	Calls SpyCommandsCalls
+	Impl  SpyCommandsImpl
 }
 
 func (sl *SpyCommands) Diff(args commands.DiffArgs) (bool, error) {
 	sl.Calls.Diff = append(sl.Calls.Diff, core.SpyCallNoRt{Args: []any{args}})
+
+	if sl.Impl.Diff != nil {
+		return sl.Impl.Diff(args)
+	}
 
 	return true, nil
 }
@@ -32,11 +44,19 @@ func (sl *SpyCommands) Diff(args commands.DiffArgs) (bool, error) {
 func (sl *SpyCommands) Adopt(args commands.AdoptArgs) (bool, error) {
 	sl.Calls.Adopt = append(sl.Calls.Adopt, core.SpyCallNoRt{Args: []any{args}})
 
+	if sl.Impl.Adopt != nil {
+		return sl.Impl.Adopt(args)
+	}
+
 	return true, nil
 }
 
 func (sl *SpyCommands) Apply(args commands.ApplyArgs) (bool, error) {
 	sl.Calls.Apply = append(sl.Calls.Apply, core.SpyCallNoRt{Args: []any{args}})
+
+	if sl.Impl.Apply != nil {
+		return sl.Impl.Apply(args)
+	}
 
 	return true, nil
 }
