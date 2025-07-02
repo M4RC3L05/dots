@@ -5,7 +5,7 @@ go 1.24.3
 require (
 	github.com/aymanbagabas/go-udiff v0.3.1
 	github.com/fatih/color v1.18.0
-	github.com/gookit/goutil v0.6.18
+	github.com/gookit/goutil v0.7.0
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
 )
